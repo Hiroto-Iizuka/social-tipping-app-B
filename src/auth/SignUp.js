@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { db } from "../firebase/firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 
@@ -6,12 +7,13 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { userName, email, password } = e.target.elements;
-    const usersCollectionRef = collection(db, 'users');
+    const usersCollectionRef = collection(db, "users");
     await addDoc(usersCollectionRef, {
       userName: userName.value,
       email: email.value,
       password: password.value,
     });
+    window.location.href = "/"; 
   }
 
   return (

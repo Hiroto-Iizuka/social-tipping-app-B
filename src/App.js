@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import DashBoard from "./components/DashBoard";
