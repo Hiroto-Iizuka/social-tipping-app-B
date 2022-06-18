@@ -1,8 +1,9 @@
+import SignUp from "./auth/SignUp";
 
 function App() {
   return (
     <div className="App">
-      test
+      <SignUp />
     </div>
   );
 }
