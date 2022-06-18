@@ -47,7 +47,7 @@ const SignUp = () => {
         <div>
           <button>新規登録</button>
         </div>
-        <p>ログインはこちらから</p>
+        <p><Link to={{pathname: "/signin"}}>ログインはこちらから</Link></p>
       </form>
     </>
   )
