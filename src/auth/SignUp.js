@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { db } from "../firebase/firebaseConfig";
+import { auth, db } from "../firebase/firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
+  const [registerUserName, setRegisterUserName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { userName, email, password } = e.target.elements;
+    try {
+      await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword,
+      );
+    } catch(error) {
+      alert("正しく入力してください");
+    }
     const usersCollectionRef = collection(db, "users");
     await addDoc(usersCollectionRef, {
-      userName: userName.value,
-      email: email.value,
-      password: password.value,
+      userName: registerUserName,
+      email: registerEmail,
+      password: registerPassword,
     });
     window.location.href = "/"; 
   }
@@ -25,6 +38,8 @@ const SignUp = () => {
           <input 
             name="userName" 
             type="userName" 
+            value={registerUserName}
+            onChange={(e) => setRegisterUserName(e.target.value)}
             placeholder="userName"
           />
         </div>
@@ -33,6 +48,8 @@ const SignUp = () => {
           <input
             name="email"
             type="email"
+            value={registerEmail}
+            onChange={(e) => setRegisterEmail(e.target.value)}
             placeholder="E-mail"
           />
         </div>
@@ -41,6 +58,8 @@ const SignUp = () => {
           <input
             name="password" 
             type="password"
+            value={registerPassword}
+            onChange={(e) => setRegisterPassword(e.target.value)}
             placeholder="Password" 
           />
         </div>
