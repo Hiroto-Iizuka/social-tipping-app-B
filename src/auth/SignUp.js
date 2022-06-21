@@ -22,9 +22,11 @@ const SignUp = () => {
     }
     const usersCollectionRef = collection(db, "users");
     await addDoc(usersCollectionRef, {
+      uid: auth.lastNotifiedUid,
       userName: registerUserName,
       email: registerEmail,
       password: registerPassword,
+      wallet: 0,
     });
     window.location.href = "/"; 
   }
