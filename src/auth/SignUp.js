@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase/firebaseConfig";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
@@ -29,13 +29,6 @@ const SignUp = () => {
       wallet: 0,
     }
     await setDoc(docRef, userData);
-    // const usersCollectionRef = collection(db, "users");
-    // await addDoc(usersCollectionRef, {
-    //   userName: registerUserName,
-    //   email: registerEmail,
-    //   password: registerPassword,
-    //   wallet: 0,
-    // });
     window.location.href = "/"; 
   }
 
