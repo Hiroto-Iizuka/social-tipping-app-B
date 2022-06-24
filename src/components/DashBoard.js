@@ -14,8 +14,6 @@ const DashBoard = () => {
     })();
   }, []);
 
-  console.log(userDocument);
-
   return (
     <>
       <h1>ダッシュボード</h1>
