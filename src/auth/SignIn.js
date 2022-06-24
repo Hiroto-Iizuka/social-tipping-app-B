@@ -26,7 +26,7 @@ const SignIn = () => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
-  });
+  }, []);
 
   return (
     <>
