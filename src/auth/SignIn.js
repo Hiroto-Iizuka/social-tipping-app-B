@@ -14,13 +14,14 @@ const SignIn = () => {
         auth,
         signInEmail,
         signInPassword,
-      );
+      )
+      window.location.href = "/";
     } catch(error) {
       alert("メールアドレスもしくはパスワードが間違っています")
     }
   }
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -35,7 +36,7 @@ const SignIn = () => {
       ) : (
         <>
           <h1>ログイン画面</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label>メールアドレス</label>
               <input
@@ -57,10 +58,10 @@ const SignIn = () => {
               />
             </div>
             <div>
-              <button onSubumit={handleSubmit}>ログイン</button>
+              <button>ログイン</button>
             </div>
           </form>
-          <p><Link to={{pathname: "/signUp"}}>新規登録はこちらから</Link></p>
+          <p><Link to={{pathname: "/signup"}}>新規登録はこちらから</Link></p>
         </>
       )}
     </>
