@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase/firebaseConfig";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
@@ -20,12 +20,15 @@ const SignUp = () => {
     } catch(error) {
       alert("正しく入力してください");
     }
-    const usersCollectionRef = collection(db, "users");
-    await addDoc(usersCollectionRef, {
+    const userDocumentId = auth.lastNotifiedUid;
+    const docRef = doc(db, "users", userDocumentId);
+    const userData = {
       userName: registerUserName,
       email: registerEmail,
       password: registerPassword,
-    });
+      wallet: 0,
+    }
+    await setDoc(docRef, userData);
     window.location.href = "/"; 
   }
 
