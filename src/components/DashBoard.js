@@ -1,26 +1,51 @@
 import React, { useState, useEffect } from "react";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const DashBoard = () => {
-  const [userDocument, setUserDocument] = useState('');
+
+  const [user, setUser] = useState();
+  const [userAuth, setUserAuth] = useState();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // ログイン認証
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/signin");
+      } else {
+        setUserAuth(user);
+      }
+    }, []);
+  });
 
   useEffect(() => {
     (async () => {
       const currentUserDocumentId = auth.lastNotifiedUid;
       const docRef = doc(db, "users", currentUserDocumentId);
       const docSnap = await getDoc(docRef);
-      setUserDocument(docSnap.data()); 
+      setUser(docSnap.data());
     })();
-  }, []);
+  })
 
-  return (
-    <>
-      <h1>ダッシュボード</h1>
-      <p>{userDocument.userName}さんようこそ!</p>
-      <p>残高：{userDocument.wallet}</p>
-    </>
-  )
+  const logout = async () => {
+    await signOut(auth);
+    navigate("/signin");
+  }
+
+  if (userAuth !== null) {
+    return (
+      <>
+        <h1>ダッシュボード</h1>
+        <p>{user?.userName}さんようこそ!</p>
+        <p>残高：{user?.wallet}</p>
+        <button onClick={logout}>ログアウト</button>
+      </>
+    )
+  } 
 }
 
 export default DashBoard;
