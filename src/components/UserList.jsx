@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import UserWalletModal from "./UserWalletModal";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -32,7 +33,7 @@ const UserList = () => {
               users.map((user, index) => (
               <tr key={index}>
                 <td>{user.userName}</td>
-                <td><button>ウォレットを見る</button></td>
+                <td><UserWalletModal user={user} /></td>
                 <td><button>送る</button></td>
               </tr>
               ))
