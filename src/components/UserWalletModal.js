@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const UserWalletModal = ({ user }) => {
   const [modal, setModal] = useState(false);
@@ -10,9 +11,8 @@ const UserWalletModal = ({ user }) => {
     <div>
       <Button onClick={toggle}>ウォレットを見る</Button>
       <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader>{user.userName}さんの残高</ModalHeader>
         <ModalBody>
-          {user.userName}さんの残高
-          <br />
           {user.wallet}
         </ModalBody>
         <ModalFooter>
