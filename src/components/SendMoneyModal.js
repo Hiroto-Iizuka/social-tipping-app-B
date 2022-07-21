@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { CurrentUser } from './DashBoard';
 import { 
   Button, Modal, ModalBody, ModalFooter, ModalHeader,
   Form, Label, Input,
@@ -6,6 +7,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SendMoneyModal = () => {
+  const currentUser = useContext(CurrentUser)
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -14,7 +16,7 @@ const SendMoneyModal = () => {
     <div>
       <Button onClick={toggle}>送る</Button>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader>あなたの残高：</ModalHeader>
+        <ModalHeader>あなたの残高：{currentUser.wallet}</ModalHeader>
         <ModalBody>
           <Form>
             <Label>送る金額</Label>
