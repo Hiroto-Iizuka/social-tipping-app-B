@@ -3,6 +3,7 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import UserList from "./UserList";
 
 const DashBoard = () => {
 
@@ -43,6 +44,7 @@ const DashBoard = () => {
         <p>{user?.userName}さんようこそ!</p>
         <p>残高：{user?.wallet}</p>
         <button onClick={logout}>ログアウト</button>
+        <UserList />
       </>
     )
   } 
