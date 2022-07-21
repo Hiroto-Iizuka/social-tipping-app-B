@@ -27,6 +27,7 @@ const SignUp = () => {
       email: registerEmail,
       password: registerPassword,
       wallet: 0,
+      uid: userDocumentId,
     }
     await setDoc(docRef, userData);
     window.location.href = "/"; 
