@@ -31,8 +31,8 @@ const UserList = () => {
           </thead>
           <tbody>
             {
-              users.map((user, index) => (
-              <tr key={index}>
+              users.map((user) => (
+              <tr key={user.uid}>
                 <td>{user.userName}</td>
                 <td><UserWalletModal user={user} /></td>
                 <td><SendMoneyModal /></td>
