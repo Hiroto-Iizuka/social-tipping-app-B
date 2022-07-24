@@ -8,9 +8,10 @@ import {
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const SendMoneyModal = () => {
-  const currentUser = useContext(CurrentUser)
-  
+const SendMoneyModal = ({ user }) => {
+  const currentUser = useContext(CurrentUser);
+  const targetUser = user
+
   const [modal, setModal] = useState(false);
   const [money, setMoney] = useState();
 
@@ -19,13 +20,24 @@ const SendMoneyModal = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     withDrawMoney();
+    sendMoney();
+    setModal(false);
   }
 
   const withDrawMoney = async () => {
     const currentUserWallet = currentUser.wallet;
     const resultMoney = currentUserWallet - money;
-    const currentUserRef = doc(db, "users", currentUser.uid)
+    const currentUserRef = doc(db, "users", currentUser.uid);
     await updateDoc(currentUserRef, {
+      wallet: resultMoney
+    });
+  }
+
+  const sendMoney = async () => {
+    const targetUserWallet = targetUser.wallet;
+    const resultMoney = Number(targetUserWallet) + Number(money);
+    const targetUserRef = doc(db, "users", targetUser.uid);
+    await updateDoc(targetUserRef, {
       wallet: resultMoney
     });
   }
