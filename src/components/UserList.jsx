@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import UserWalletModal from "./UserWalletModal";
+import SendMoneyModal from "./SendMoneyModal";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -13,7 +14,7 @@ const UserList = () => {
         querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
     });
-  }, [])
+  }, [users])
 
   return (
     <>
@@ -34,7 +35,7 @@ const UserList = () => {
               <tr key={index}>
                 <td>{user.userName}</td>
                 <td><UserWalletModal user={user} /></td>
-                <td><button>送る</button></td>
+                <td><SendMoneyModal user={user} /></td>
               </tr>
               ))
             }
